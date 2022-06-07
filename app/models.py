@@ -14,6 +14,6 @@ class Node(Base):
 
     id=Column(Integer,primary_key=True,index=True,autoincrement=True)
     value=Column(Integer)
-    tree_id=Column(Integer,ForeignKey("tress.id"))
+    tree_id=Column(Integer,ForeignKey("trees.id"))
 
     main_tree=relationship("Tree",back_populates="nodes")

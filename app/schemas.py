@@ -12,5 +12,5 @@ class TreeNewCreate():
     id:int
 
 class NodeNew(BaseModel):
-    tree_id:int
-    
+    node_val:int
+
