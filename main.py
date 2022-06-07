@@ -35,14 +35,14 @@ def delete(tree_id,node_id,db: Session=Depends(get_db)):
 @app.post("/trees/{tree_id}/inorder")
 def inorder(tree_id,db: Session=Depends(get_db)):
     tree=crud.get_tree(db,tree_id)
-    return tree[0].inorder(tree)
+    return tree[0].inorder(tree[0])
 
 @app.post("/trees/{tree_id}/preorder")
 def preorder(tree_id,db: Session=Depends(get_db)):
     tree=crud.get_tree(db,tree_id)
-    return tree[0].preorder()
+    return tree[0].preorder(tree[0])
 
 @app.post("/trees/{tree_id}/postorder")
 def postorder(tree_id,db: Session=Depends(get_db)):
     tree=crud.get_tree(db,tree_id)
-    return tree[0].postorder()
+    return tree[0].postorder(tree[0])
