@@ -9,6 +9,8 @@ class Node(object):
         self.right=None
         self.name=name
 
+    def new_tree(self,db):
+        return crud.create_tree(db,self,self.name)
     
 
     def insert(self,db,data,tree_id) ->None:
