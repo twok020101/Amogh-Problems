@@ -3,14 +3,13 @@ from pydantic import NoneStr
 from . import crud
 
 class Node(object):
-    def __init__(self,data,name) -> None:
+    def __init__(self,data) -> None:
         self.data=data
         self.left=None
         self.right=None
-        self.name=name
 
-    def new_tree(self,db):
-        return crud.create_tree(db,self,self.name)
+    def new_tree(self,db,name):
+        return crud.create_tree(db,self,name)
     
 
     def insert(self,db,data,tree_id) ->None:
@@ -18,15 +17,17 @@ class Node(object):
             if data<self.data:
                 if self.left is None:
                     self.left=Node(data)
+                    crud.update_tree(db,self,tree_id)
+                    return crud.create_node(db,data,tree_id)
                 else:
                     self.left.insert(data)
-                    return crud.create_node(db,self,tree_id)
             elif data>self.data:
                 if self.right is None:
                     self.right=Node(data)
+                    crud.update_tree(db,self,tree_id)
+                    return crud.create_node(db,data,tree_id)
                 else:
                     self.right.insert(data)
-                    return crud.create_node(db,self,tree_id)
         else:
             self.data=data
             return crud.create_node(db,self,tree_id)
@@ -44,27 +45,27 @@ class Node(object):
             else:
                 return {"message":"Node not found"}
 
-    def inorderTraversal(self, root):
+    def inorder(self, root):
         res = []
         if root:
-            res = self.inorderTraversal(root.left)
+            res = self.inorder(root.left)
             res.append(root.data)
-            res = res + self.inorderTraversal(root.right)
+            res = res + self.inorder(root.right)
         return res
 
-    def PreorderTraversal(self, root):
+    def preorder(self, root):
         res = []
         if root:
             res.append(root.data)
-            res = res + self.PreorderTraversal(root.left)
-            res = res + self.PreorderTraversal(root.right)
+            res = res + self.preorder(root.left)
+            res = res + self.preorder(root.right)
         return res
 
-    def PostorderTraversal(self, root):
+    def postorder(self, root):
         res = []
         if root:
-            res = self.PostorderTraversal(root.left)
-            res = res + self.PostorderTraversal(root.right)
+            res = self.postorder(root.left)
+            res = res + self.postorder(root.right)
             res.append(root.data)
             return res
     

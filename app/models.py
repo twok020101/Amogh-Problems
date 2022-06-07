@@ -12,7 +12,7 @@ class Tree(Base):
     node_relationship = relationship("Node",back_populates="main_tree")
 
 class Node(Base):
-    __tablename__="nodes"
+    __tablename__="nodees"
 
     id=Column(Integer,primary_key=True,index=True,autoincrement=True)
     value=Column(Integer)

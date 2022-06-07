@@ -15,6 +15,7 @@ def create_node(db:Session, node_val,tree_ids):
     db.add(new_node)
     db.commit()
     db.refresh(new_node)
+    print(new_node.id)
     return new_node.id
 
 def get_tree(db:Session,tree_id):
